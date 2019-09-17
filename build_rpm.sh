@@ -15,6 +15,7 @@ cd /tmp/build
 # Install dependencies to build
 export BUILD_REQUIRES="gcc,gettext,make"
 yum -y install ${BUILD_REQUIRES//,/ }
+cd -
 
 # Environments
 export PATCH_DIR=$(pwd)/patches
