@@ -3,6 +3,10 @@
 # Abort if error
 trap "exit 1" ERR
 
+# Environments
+export PATCH_DIR=$(pwd)/patches
+export OUT_DIR=$(pwd)/
+
 #====================================
 # Build the checkinstall's RPM file.
 #====================================
@@ -15,12 +19,9 @@ cd /tmp/build
 # Install dependencies to build
 export BUILD_REQUIRES="gcc,gettext,make"
 yum -y install ${BUILD_REQUIRES//,/ }
-cd -
 
-# Environments
-export PATCH_DIR=$(pwd)/patches
-export OUT_DIR=$(pwd)/
-
+#Go back out to where we were building things
+cd $OUT_DIR
 # Apply patches
 yum -y install patch
 ## [Change installation directory of installwatch.so to /usr/local/lib64 on a 64bit system.]
