@@ -26,7 +26,7 @@ cd $OUT_DIR
 yum -y install patch
 ## [Change installation directory of installwatch.so to /usr/local/lib64 on a 64bit system.]
 ## http://d.hatena.ne.jp/pcmaster/20120916/p1
-patch -p1 -d . < $PATCH_DIR/checkinstall.lib64.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.lib64.patch
 ## [Change the location of configration files to /usr/local/etc.]
 ## http://d.hatena.ne.jp/naga_sawa/20120410/1334024586
 patch -p1 -d . < $PATCH_DIR/checkinstall.confdir.patch
