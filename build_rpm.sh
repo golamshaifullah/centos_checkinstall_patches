@@ -29,27 +29,27 @@ yum -y install patch
 patch -p1 -d ../ < $PATCH_DIR/checkinstall.lib64.patch
 ## [Change the location of configration files to /usr/local/etc.]
 ## http://d.hatena.ne.jp/naga_sawa/20120410/1334024586
-patch -p1 -d . < $PATCH_DIR/checkinstall.confdir.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.confdir.patch
 ## [Changed setting not to use Slackware's native "makepkg".]
 ## http://blog.toor.jp/2012/03/checkinstall_on_centos-6-2-64bit/
-patch -p1 -d . < $PATCH_DIR/checkinstall.makepkg.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.makepkg.patch
 ## [Exclude "/selinux" by default. (--exclude=/selinux)]
 ## http://checkinstall.izto.org/cklist/msg00776.html
-patch -p1 -d . < $PATCH_DIR/checkinstall.selinux.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.selinux.patch
 ## [Set "RPM" as a default package type.]
 ## http://d.hatena.ne.jp/akishin999/20130220/1361316887
-patch -p1 -d . < $PATCH_DIR/checkinstall.rpm.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.rpm.patch
 ## [Add a option "autoreqprov" to turn on/off automatic dependencies feature of the RPM.]
 ## http://checkinstall.izto.org/cklist/msg00574.html
-patch -p1 -d . < $PATCH_DIR/checkinstall.autoreqprov.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.autoreqprov.patch
 ## [Include 'checkinstallrc' into the checkinstall's rpm file.]
 ## http://qiita.com/hnakamur/items/55ed1bc496b2e72a5ca6
-patch -p1 -d . < $PATCH_DIR/checkinstall.rc.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.rc.patch
 ## [A temporary patch to include symbolic links to directories into RPM file]
 ## http://blog.bsdhack.org/index.cgi/Computer/20140523.html
-patch -p1 -d . < $PATCH_DIR/checkinstall.symlinkdir.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.symlinkdir.patch
 ## [Do not add 'Recommends:' and 'Suggests:' tags to rpm spec file]
-patch -p1 -d . < $PATCH_DIR/checkinstall.recommends_tag.patch
+patch -p1 -d ../ < $PATCH_DIR/checkinstall.recommends_tag.patch
 
 # Make and install
 make install
