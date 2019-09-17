@@ -7,8 +7,18 @@ trap "exit 1" ERR
 # Build the checkinstall's RPM file.
 #====================================
 
+# Create a working directory.
+mkdir -p /tmp/build
+export BUILD_TMP="/tmp/build"
+cd /tmp/build
+
+# Install dependencies to build
+export BUILD_REQUIRES="gcc,gettext,make"
+yum -y install ${BUILD_REQUIRES//,/ }
+
 # Environments
 export PATCH_DIR=./patches
+export OUT_DIR=./
 
 # Apply patches
 yum -y install patch

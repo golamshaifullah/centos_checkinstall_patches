@@ -1,0 +1,63 @@
+diff --git a/checkinstall.in b/checkinstall.in
+index 2a53ca3..98b8f16 100755
+--- a/checkinstall.in
++++ b/checkinstall.in
+@@ -149,6 +149,7 @@ function usage() {
+    echog "--pkgaltsource=<altsource>     Set alternate source location"
+    echog "--pakdir=<directory>           The new package will be saved here"
+    echog "--maintainer=<email addr>      The package maintainer (.deb)"
++   echog "--autoreqprov=<yes|no>         Enable/Disable automatic dependency processing"
+    echog "--provides=<list>              Features provided by this package"
+    echog "--requires=<list>              Features required by this package"
+    echog "--recommends=<list>            Features recommended by this package"
+@@ -514,7 +515,7 @@ fi
+ # Arguments parsing
+ 
+ CKNAME=`basename "$0"`
+-PARAMS=`getopt -a -n $CKNAME -o +d:DA:t:RShHy -l arch:,type:,si,showinstall::,ss,showslack::,deldoc::,delspec::,deldesc::,strip::,addso::,install::,stripso::,gzman::,bk,backup::,autodoinst::,reset-uids::,fstrans::,spec:,exclude:,include:,pkgname:,pkgversion:,pkgrelease:,pkglicense:,pkggroup:,pkgsource:,pkgaltsource:,pakdir:,docdir:,requires:,recommends:,suggests:,provides:,conflicts:,replaces:,maintainer:,dpkgflags:,rpmflags:,pkgarch:,umask:,with-tar:,summary:,inspect,review-spec,review-control,newslack,help,nodoc,rpmi,rpmu,version,copyright,default -- "$@"`
++PARAMS=`getopt -a -n $CKNAME -o +d:DA:t:RShHy -l arch:,type:,si,showinstall::,ss,showslack::,deldoc::,delspec::,deldesc::,strip::,addso::,install::,stripso::,gzman::,bk,backup::,autodoinst::,reset-uids::,fstrans::,spec:,exclude:,include:,pkgname:,pkgversion:,pkgrelease:,pkglicense:,pkggroup:,pkgsource:,pkgaltsource:,pakdir:,docdir:,requires:,recommends:,suggests:,provides:,conflicts:,replaces:,maintainer:,autoreqprov:,dpkgflags:,rpmflags:,pkgarch:,umask:,with-tar:,summary:,inspect,review-spec,review-control,newslack,help,nodoc,rpmi,rpmu,version,copyright,default -- "$@"`
+ 
+ [ $? -gt 0 ] && help_notice
+ 
+@@ -617,6 +618,17 @@ while [ "$1" != "--" ]; do
+          shift
+          MAINTAINER=`eval echo $1`
+          ;;
++      --autoreqprov)
++         shift
++         case `eval echo $1` in
++            1|yes|'')
++               AUTOREQPROV="yes";;
++            0|no)
++               AUTOREQPROV="no";;
++            *)
++               boolean_usage "--autoreqprov" $1
++         esac
++         ;;
+       --dpkgflags)
+          shift
+          DPKG_FLAGS=`eval echo $1`
+@@ -1284,6 +1296,7 @@ if [ -f "$SPEC_PATH" ]; then
+    REQUIRES=`getparameter "^[Rr]equires"`
+    RECOMMENDS=`getparameter "^[Rr]commends"`
+    SUGGESTS=`getparameter "^[Ss]uggests"`
++   AUTOREQPROV=`getparameter "^[Aa]utoReqProv:"`
+ fi
+       
+    OPTION=junk
+@@ -1384,6 +1397,7 @@ fi
+       ! [ "$REQUIRES" ] && REQUIRES=""
+       ! [ "$RECOMMENDS" ] && RECOMMENDS=""
+       ! [ "$SUGGESTS" ] && SUGGESTS=""
++      ! [ "$AUTOREQPROV"  ] && AUTOREQPROV="yes"
+       # bond: added this so it is easy to change the Maintainer: field
+       # just by setting the MAINTAINER environment variable
+ 
+@@ -2430,6 +2444,7 @@ Provides:  $PROVIDES
+ Requires:  $REQUIRES,/bin/sh
+ Recommends: $RECOMMENDS
+ Suggests:  $SUGGESTS
++AutoReqProv: $AUTOREQPROV
+ 
+ %description
+ EOF

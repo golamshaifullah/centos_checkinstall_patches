@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index 71e4da3..72ccf9d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,7 +4,7 @@
+ PREFIX=/usr/local
+ BINDIR=$(PREFIX)/sbin
+ LCDIR=$(PREFIX)/lib/checkinstall/locale
+-CONFDIR=$(PREFIX)/lib/checkinstall
++CONFDIR=$(PREFIX)/etc
+ 
+ all:
+ 	for file in locale/checkinstall-*.po ; do \
+diff --git a/checkinstall.in b/checkinstall.in
+index 66c9cd0..2a53ca3 100755
+--- a/checkinstall.in
++++ b/checkinstall.in
+@@ -500,7 +500,7 @@ function copy_dir_hierarchy {
+ ckversion
+ echo
+ 
+-CHECKINSTALLRC=${CHECKINSTALLRC:-${INSTALLDIR}/lib/checkinstall/checkinstallrc}
++CHECKINSTALLRC="$INSTALLDIR/etc/checkinstallrc"
+ if ! [ -f $CHECKINSTALLRC ]; then
+    echog "The checkinstallrc file was not found at:\n$CHECKINSTALLRC"
+    echo
