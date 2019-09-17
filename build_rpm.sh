@@ -17,8 +17,8 @@ export BUILD_REQUIRES="gcc,gettext,make"
 yum -y install ${BUILD_REQUIRES//,/ }
 
 # Environments
-export PATCH_DIR=./patches
-export OUT_DIR=./
+export PATCH_DIR=$(pwd)/patches
+export OUT_DIR=$(pwd)/
 
 # Apply patches
 yum -y install patch
