@@ -51,6 +51,7 @@ patch -p1 -d ../ < $PATCH_DIR/checkinstall.symlinkdir.patch
 ## [Do not add 'Recommends:' and 'Suggests:' tags to rpm spec file]
 patch -p1 -d ../ < $PATCH_DIR/checkinstall.recommends_tag.patch
 
+cd ../
 # Make and install
 make install
 
